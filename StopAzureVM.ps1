@@ -8,7 +8,7 @@
     Powershell Version :    5 or higher
 #>
 
-workflow StopVmScript
+workflow StopAzureVM
 {
 #######################################################################
 ## Set parameters

@@ -38,7 +38,7 @@ Connect-AzAccount -ServicePrincipal -SubscriptionId $subscriptionId -TenantId $t
 #######################################################################
 ## Stop VM
 #######################################################################
-$StopVm = Stop-AzVM -ResourceGroupName $ResourceGroupName -Name $VmName -ErrorAction Continue
+$StopVm = Stop-AzVM -ResourceGroupName $ResourceGroupName -Name $VmName -Force -ErrorAction Continue
 	if ($StopVm.Status -ne 'Succeeded')
 		{
 			# The VM failed to stop, so send notice

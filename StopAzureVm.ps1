@@ -1,6 +1,6 @@
 <#
 .DESCRIPTION
-    That Powershell Workflow Runbook is used to start Azure VMs from Azure Automation
+    That Powershell Workflow Runbook is used to stop Azure VMs from Azure Automation
 
 .NOTES
     Version:                20211026: Initial version
@@ -8,7 +8,7 @@
     Powershell Version :    5 or higher
 #>
 
-workflow StartAzureVm
+workflow StopAzureVm
 {
 #######################################################################
 ## Set parameters
@@ -36,19 +36,19 @@ Connect-AzAccount -ServicePrincipal -SubscriptionId $subscriptionId -TenantId $t
 
 
 #######################################################################
-## Start VM
+## Stop VM
 #######################################################################
-$StartVm = Start-AzVM -ResourceGroupName $ResourceGroupName -Name $VmName -ErrorAction Continue
-	if ($StartVm.Status -ne 'Succeeded')
+$StopVm = Stop-AzVM -ResourceGroupName $ResourceGroupName -Name $VmName -ErrorAction Continue
+	if ($StopVm.Status -ne 'Succeeded')
 		{
-			# The VM failed to start, so send notice
-        	    Write-Output ($VmName + " failed to start.")
+			# The VM failed to stop, so send notice
+        	    Write-Output ($VmName + " failed to stop.")
         	    Write-Error ($VmName + " failed to start. Error was:") -ErrorAction Continue
-				Write-Error (ConvertTo-Json $StartVm.Error) -ErrorAction Continue
+				Write-Error (ConvertTo-Json $StopVm.Error) -ErrorAction Continue
 		}
 		else
 		{
-			# The VM is started 
-				Write-Output ($VmName + " has been started.")
+			# The VM is stopped 
+				Write-Output ($VmName + " has been stopped.")
 		}
 }
